@@ -4,7 +4,7 @@ First of all, the file you will find here will always be the latest version, but
 
 Anyway, let's move on to how to install this thing on your PC.
 1. Download the "carrot" file;
-2. Open the terminal and, by typing `sudo <the name of your file manager>` and entering the password of your choice, enter the `/usr/bin` directory;
+2. Open the terminal and, by typing `sudo <the name of your file manager>` and entering the sudo password (or your computer password, if you made them the same), enter the `/usr/bin` directory;
 3. Paste the "carrot" file there, and you're done!
 
 Once this is done, type `carrot -help` in the terminal, and it should list the commands you can do with Carrotbash. Have fun!
