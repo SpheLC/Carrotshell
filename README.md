@@ -1,7 +1,5 @@
 Hi! Thank you for being here!
 
-First of all, the file you will find here will always be the latest version, but be careful, you will have to redownload it in case of an update.
-
 Anyway, let's move on to how to install this thing on your PC.
 1. Download the "carrot" file;
 2. Open the terminal and, by typing `sudo <the name of your file manager>` and entering the sudo password (or your computer password, if you made them the same), enter the `/usr/bin` directory;
