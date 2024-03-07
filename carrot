@@ -1,0 +1,60 @@
+#!/bin/sh
+
+HEADER='\033[95m'
+BLUE='\033[94m'
+CYAN='\033[96m'
+GREEN='\033[92m'
+RED1='\033[93m'
+RED2='\033[91m'
+WHITE='\033[0m'
+UNDERLINE='\033[4m'
+
+ver="10 ~ delete update"
+cu="\n${HEADER}Command usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\n${RED2}Carrotshell V${ver}$WHITE\n"
+?
+if [ "$1" = '-cpp' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't write nothing!\nUsage: carrot -cpp <path>\n"
+    else
+        echo "\n"
+        g++ $2 -o carrotprogbash
+        ./carrotprogbash
+        rm carrotprogbash
+        echo "\n"
+    fi
+
+elif [ "$1" = '-repeat' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't wrote nothing!\nUsage: carrot -repeat <string>\n"
+    else
+        echo "\n$2\n"
+    fi
+
+elif [ "$1" = '-carrotedit' ]; then
+    echo "\n${RED2}WARNING! You are about to edit the Carrotbash program!$WHITE"
+    echo -n "Are you still sure about editing it? [y/n] >> "
+    read sas
+    if [ "$sas" = 'y' ]; then
+        echo "\n${RED1}Opening gedit...$WHITE"
+        sudo gedit /usr/bin/carrot
+    else
+        echo "\n${GREEN}Aborted.$WHITE\n"
+    fi
+
+elif [ "$1" = '-remove' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>' $WHITE\n"
+    else
+        rm $2 $3
+    fi
+
+elif [ "$1" = '-help' ]; then
+    echo "$cu"
+elif [ "$1" = '' ]; then
+    echo "$cu"
+else
+    echo "\n'$1' is an unexpected command"
+    echo "$cu"
+fi
+
+#Carrotshell By Sphe
