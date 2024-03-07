@@ -9,7 +9,7 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="18"
+ver1="19"
 ver="$ver1 ~ Autoupdating Carrotbash update"
 cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -update\nUpdates Carrotbash\n\n${RED2}Carrotshell V${ver}$WHITE\n"
 
@@ -96,7 +96,7 @@ elif [ "$1" = '-update' ]; then
     echo "${RED1}Press Enter if I ask you a question to confirm moving some files (~/.Carrotbash/carrot to /usr/bin/carrot)$WHITE"
     sudo mv ~/.Carrotbash/carrot /usr/bin
     sudo chmod +x /usr/bin/carrot
-    echo "${GREEN}Done!$WHITE"
+    echo "${UNDERLINE}${GREEN}Done!\n $WHITE"
 
 elif [ "$1" = '-help' ]; then
     echo "$cu"
