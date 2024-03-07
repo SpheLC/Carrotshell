@@ -9,9 +9,9 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="12"
-ver="$ver1 ~ package & great carrot update"
-cu="\n${HEADER}Command usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\n${RED2}Carrotshell V${ver}$WHITE\n"
+ver1="13"
+ver="$ver1 ~ Autoupdating Carrotbash update"
+cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\n${RED2}Carrotshell V${ver}$WHITE\n"
 
 if [ ! $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) = $ver1 ]; then
     echo "${RED2}   .$WHITE"
@@ -61,7 +61,7 @@ elif [ "$1" = '-carrotedit' ]; then
 
 elif [ "$1" = '-remove' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>' $WHITE\n"
+        echo "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>'$WHITE\n"
     else
         rm $2 $3
     fi
@@ -82,6 +82,17 @@ elif [ "$1" = '-pr' ]; then
 
 elif [ "$1" = '-pu' ]; then
     sudo apt update && sudo apt upgrade
+
+elif [ "$1" = '-update' ]; then
+    if [ ! -d ~/.Carrotbash ]; then
+        mkdir ~/.Carrotbash
+        fi
+    mkdir ~/.Carrotbash/UPDATING
+    cd ~/.Carrotbash/UPDATING
+    git clone https://github.com/SpheLC/Carrotshell.git
+    sudo cp ~/.Carrotbash/UPDATING/Carrotshell/carrot /usr/bin
+    rm -r ~/.Carrotbash/UPDATING
+    echo "${GREEN}Done!$WHITE"
 
 elif [ "$1" = '-help' ]; then
     echo "$cu"
