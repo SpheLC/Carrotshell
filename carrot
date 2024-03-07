@@ -9,9 +9,25 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver="10 ~ delete update"
+ver1="11"
+ver="$ver1 ~ package & great carrot update"
 cu="\n${HEADER}Command usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\n${RED2}Carrotshell V${ver}$WHITE\n"
-?
+
+if [ ! $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) = $ver1 ]; then
+    echo "${RED2}   .$WHITE"
+    echo "${RED2}  / \ $WHITE"
+    echo "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}!$WHITE"
+    echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update! $WHITE"
+    fi
+
+if [ ! -f ~/.Carrotbash/ini ]; then
+    echo "\nInitialization..."
+    if [ ! -d ~/.Carrotbash ]; then
+        mkdir ~/.Carrotbash
+        fi
+    echo "Delete this file to re-inizialize Carrotbash!" >> ~/.Carrotbash/ini
+    fi
+
 if [ "$1" = '-cpp' ]; then
     if [ "$2" = '' ]; then
         echo "\nYou haven't write nothing!\nUsage: carrot -cpp <path>\n"
@@ -46,6 +62,20 @@ elif [ "$1" = '-remove' ]; then
         echo "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>' $WHITE\n"
     else
         rm $2 $3
+    fi
+
+elif [ "$1" = '-pi' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't wrote nothing!\nUsage: carrot -pi <package>\n"
+    else
+        sudo apt install $2
+    fi
+
+elif [ "$1" = '-pr' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't wrote nothing!\nUsage: carrot -pr <package>\n"
+    else
+        sudo apt remove $2
     fi
 
 elif [ "$1" = '-help' ]; then
