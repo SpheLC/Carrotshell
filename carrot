@@ -9,16 +9,19 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="20"
+ver1="21"
 ver="$ver1 ~ Autoupdating Carrotshell update"
 cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -update\nUpdates Carrotshell\n\n${RED2}Carrotshell V${ver}$WHITE\n"
 
-if [ ! $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) = $ver1 ]; then
+if [ $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) > $ver1 ]; then
     echo "${RED2}   .$WHITE"
     echo "${RED2}  / \ $WHITE"
     echo "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}!$WHITE"
     echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE"
+elif [ $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) > $ver1 ]; then
+    echo "${RED2}ERROR: Your version is newer than the original release.\nTry to update Carrotshell to fix this error or just wait some minutes.$WHITE"
     fi
+
 
 if [ ! -f ~/.Carrotshell/ini ]; then
     echo "\nInitialization..."
