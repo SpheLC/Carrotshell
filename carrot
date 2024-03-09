@@ -101,12 +101,13 @@ else
 fi
 
 #Check the version
-if [ $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) > $ver1 ]; then
+veronline = (w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme)
+if [ $veronline > $ver1 ]; then
     echo "${RED2}   .$WHITE"
     echo "${RED2}  / \ $WHITE"
-    echo "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}! (V${(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme)})$WHITE"
+    echo "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}! (V${veronline})$WHITE"
     echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE"
-elif [ $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) > $ver1 ]; then
+elif [ $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) < $ver1 ]; then
     echo "${RED2}ERROR: Your version is newer than the original release.\nTry to update Carrotshell to fix this error or just wait some minutes.$WHITE"
     fi
 
