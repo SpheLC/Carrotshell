@@ -9,9 +9,9 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="19"
-ver="$ver1 ~ Autoupdating Carrotbash update"
-cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotbash program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -update\nUpdates Carrotbash\n\n${RED2}Carrotshell V${ver}$WHITE\n"
+ver1="20"
+ver="$ver1 ~ Autoupdating Carrotshell update"
+cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified packagen\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -update\nUpdates Carrotshell\n\n${RED2}Carrotshell V${ver}$WHITE\n"
 
 if [ ! $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme) = $ver1 ]; then
     echo "${RED2}   .$WHITE"
@@ -20,12 +20,12 @@ if [ ! $(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/ver
     echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE"
     fi
 
-if [ ! -f ~/.Carrotbash/ini ]; then
+if [ ! -f ~/.Carrotshell/ini ]; then
     echo "\nInitialization..."
-    if [ ! -d ~/.Carrotbash ]; then
-        mkdir ~/.Carrotbash
+    if [ ! -d ~/.Carrotshell ]; then
+        mkdir ~/.Carrotshell
         fi
-    echo "Delete this file to re-inizialize Carrotbash!" >> ~/.Carrotbash/ini
+    echo "Delete this file to re-inizialize Carrotshell!" >> ~/.Carrotshell/ini
     echo "\n${RED1}Super User powers needed to install required packages$WHITE"
     sudo apt install build-essential gedit xfce4-terminal
     fi
@@ -49,7 +49,7 @@ elif [ "$1" = '-repeat' ]; then
     fi
 
 elif [ "$1" = '-carrotedit' ]; then
-    echo "\n${RED2}WARNING! You are about to edit the Carrotbash program!$WHITE"
+    echo "\n${RED2}WARNING! You are about to edit the Carrotshell program!$WHITE"
     echo -n "Are you still sure about editing it? [y/n] >> "
     read sas
     if [ "$sas" = 'y' ]; then
@@ -87,14 +87,14 @@ elif [ "$1" = '-pu' ]; then
     sudo apt update && sudo apt upgrade
 
 elif [ "$1" = '-update' ]; then
-    if [ ! -d ~/.Carrotbash ]; then
-        mkdir ~/.Carrotbash
+    if [ ! -d ~/.Carrotshell ]; then
+        mkdir ~/.Carrotshell
         fi
-    cd ~/.Carrotbash/
+    cd ~/.Carrotshell/
     wget https://raw.githubusercontent.com/SpheLC/Carrotshell/main/carrot
-    echo "\n${RED1}Super User powers needed to update Carrotbash$WHITE"
-    echo "${RED1}Press Enter if I ask you a question to confirm moving some files (~/.Carrotbash/carrot to /usr/bin/carrot)$WHITE"
-    sudo mv ~/.Carrotbash/carrot /usr/bin
+    echo "\n${RED1}Super User powers needed to update Carrotshell$WHITE"
+    echo "${RED1}Press Enter if I ask you a question to confirm moving some files (~/.Carrotshell/carrot to /usr/bin/carrot)$WHITE"
+    sudo mv ~/.Carrotshell/carrot /usr/bin
     sudo chmod +x /usr/bin/carrot
     echo "${UNDERLINE}${GREEN}Done!\n $WHITE"
 
