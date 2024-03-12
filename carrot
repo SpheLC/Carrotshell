@@ -9,9 +9,9 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="26"
-ver="$ver1 ~ Bug fixes update"
-cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified package\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -update\nUpdates Carrotshell\n\n${GREEN}Carrotshell V${ver}$WHITE\n"
+ver1="27"
+ver="$ver1 ~ .deb update"
+cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified package\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -deb [i/-r] <path>\nInstalls[-i]/Removes[-r] .deb package\n\ncarrot -update\nUpdates Carrotshell\n\n${GREEN}Carrotshell V${ver}$WHITE\n"
 
 if [ ! -f ~/.Carrotshell/ini ]; then
     echo "\nInitialization..."
@@ -32,6 +32,27 @@ if [ "$1" = '-cpp' ]; then
         ./carrotprogbash
         rm carrotprogbash
         echo "\n"
+    fi
+
+elif [ "$1" = '-deb' ]; then
+    if [ "$2" = '' ]; then
+        echo "\nYou haven't write the option!\nUsage: carrot -deb [-i/-r] <path>\n"
+    elif [ "$2" = '-i' ]; then
+        if [ "$3" = '' ]; then
+            echo "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n"
+        else
+            echo "\n${RED1}Super User powers needed to install packages$WHITE"
+            sudo dpkg -i $3
+        fi
+    elif [ "$2" = '-r' ]; then
+        if [ "$3" = '' ]; then
+            echo "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n"
+        else
+            echo "\n${RED1}Super User powers needed to install packages$WHITE"
+            sudo dpkg -r $3
+        fi
+    else
+        echo "\nInvalid option!\nUsage: carrot -deb [-i/-r] <path>\n"
     fi
 
 elif [ "$1" = '-repeat' ]; then
