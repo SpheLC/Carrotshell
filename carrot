@@ -9,29 +9,34 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="28"
-ver="$ver1 ~ Errors correction update"
-cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified package\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -deb [-i/-r] <path>\nInstalls[-i]/Removes[-r] .deb package\n\ncarrot -update\nUpdates Carrotshell\n\n${GREEN}Carrotshell V${ver}$WHITE\n"
+ver1="29"
+ver="$ver1 ~ Rust support update"
+cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C/C++ program $RED1(GCC is required / ${RED2}build-essential$RED1 package)$HEADER\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit $RED1(${RED2}gedit$RED1 is required)$HEADER\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified package\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -deb [-i/-r] <path>\nInstalls[-i]/Removes[-r] .deb package\n\ncarrot -update\nUpdates Carrotshell\n\ncarrot -rustdir <path>\nSets Rust Cargo directory (usually ~/.cargo/bin)\n\ncarrot -rust <path>\nExecute Rust program\n\n${GREEN}Carrotshell V${ver}$WHITE\n"
 
 if [ ! -f ~/.Carrotshell/ini ]; then
     echo "\nInitialization..."
     if [ ! -d ~/.Carrotshell ]; then
         mkdir ~/.Carrotshell
-        fi
+    fi
     echo "Delete this file to re-inizialize Carrotshell!" >> ~/.Carrotshell/ini
     echo "\n${RED1}Super User powers needed to install required packages$WHITE"
     sudo apt install build-essential gedit xfce4-terminal
-    fi
+fi
 
 if [ "$1" = '-cpp' ]; then
     if [ "$2" = '' ]; then
         echo "\nYou haven't write nothing!\nUsage: carrot -cpp <path>\n"
     else
-        echo "\n"
-        g++ $2 -o carrotprogbash
-        ./carrotprogbash
-        rm carrotprogbash
-        echo "\n"
+        if [ ! -f $2 ]; then
+            echo "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.cpp\n$WHITE"
+        else
+            echo "\n${RED1}Compiling...$WHITE"
+            g++ $2 -o carrotprogbash
+            echo "${BLUE}Executing...$WHITE\n"
+            ./carrotprogbash
+            echo "\n${GREEN}Executed!$WHITE\n"
+            rm carrotprogbash
+        fi
     fi
 
 elif [ "$1" = '-deb' ]; then
@@ -90,9 +95,9 @@ elif [ "$1" = '-pi' ]; then
 
 elif [ "$1" = '-pr' ]; then
     if [ "$2" = '' ]; then
-        echo "\n${RED1}Super User powers needed to remove packages$WHITE"
         echo "\nYou haven't wrote nothing!\nUsage: carrot -pr <package>\n"
     else
+        echo "\n${RED1}Super User powers needed to remove packages$WHITE"
         sudo apt remove $2
     fi
 
@@ -117,10 +122,56 @@ elif [ "$1" = '-help' ]; then
     echo "$cu"
 elif [ "$1" = '' ]; then
     echo "$cu"
+
+elif [ "$1" = '-rustdir' ]; then
+    if [ "$2" = '' ]; then
+        echo "\n${RED2}You haven't wrote nothing!\n${RED1}Usage: carrot -rustdir <directory>\n(usually it is in ~/.cargo/bin)$WHITE\n"
+    else
+        if [ ! -d $2 ]; then
+            echo "\n${RED2}ERROR: This directory doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents\n$WHITE"
+        else
+            echo "\nWriting..."
+            if [ ! -f ~/.Carrotshell/rust ]; then
+                echo $2 >> ~/.Carrotshell/rust
+            else
+                rm ~/.Carrotshell/rust
+                echo $2 >> ~/.Carrotshell/rust
+            fi
+            if [ ! -f $2/rustc ]; then
+                echo "${RED2}Invalid directory! This directory that you wrote doesn't have the 'rustc' file inside!$WHITE\n"
+            else
+                echo "${GREEN}Done!$WHITE\n"
+            fi
+        fi
+    fi
+
+elif [ "$1" = '-rust' ]; then
+    if [ "$2" = '' ]; then
+        echo "\n${RED2}You haven't write nothing!\n${RED1}Usage: carrot -rust <path>\n"
+    else
+        if [ ! -f $2 ]; then
+            echo "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.rs\n$WHITE"
+        else
+            b=$(basename $2)
+            c=${b%.*}
+            if [ ! -f ~/.Carrotshell/rust ]; then
+                echo "\n${RED2}ERROR: Rust Cargo directory it hasn't been set yet! Fix this by doing:\n${RED1}carrot -rustdir <path>$WHITE\n"
+            else
+                echo "\n${RED1}Compiling...$WHITE"
+                $(cat ~/.Carrotshell/rust)/rustc $2
+                echo "${BLUE}Executing...$WHITE\n"
+                ./$c
+                echo "\n${GREEN}Executed!$WHITE\n"
+                rm $c
+            fi
+        fi
+    fi
+
+#if command not found...
 else
     echo "\n'$1' is an unexpected command"
     echo "$cu"
-fi 
+fi
 
 #Check the version
 veronline=$(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme)
@@ -131,6 +182,6 @@ if [ $veronline -gt $ver1 ]; then
     echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE\n"
 elif [ $veronline -lt $ver1 ]; then
     echo "${RED2}ERROR: Your version is newer than the original release.\nTry to update Carrotshell to fix this error or just wait some minutes.\nYour version: $ver1 | Current version: $veronline$WHITE\n"
-    fi
+fi
 
 #Carrotshell By Sphe
