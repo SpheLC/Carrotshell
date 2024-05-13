@@ -1,4 +1,6 @@
 Hi! Thank you for being here!
+# What is Carrotshell
+`Carrotchell` is a program written in Bash that has to be called via the Linux terminal with the `carrot` command, and it uses to make the approach between a Linux Operating System and a non-expert user easier. Additionally, it has some shortcuts for running programs (such as C, C++, and Rust) with just one command.
 
 # Install
 Anyway, let's move on to how to install this thing on your PC.
