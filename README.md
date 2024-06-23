@@ -4,7 +4,7 @@ Hi! Thank you for being here!
 
 # Install
 Anyway, let's move on to how to install this thing on your PC.
-- By opening the terminal (make sure that the terminal is working on the home directory. You can see it if there is a "~" between the colon and the dollar symbol), type `wget https://raw.githubusercontent.com/SpheLC/Carrotshell/main/carrot && sudo mv ~/carrot /usr/bin`
+- By opening the terminal (make sure that the terminal is working on the home directory. You can see it if there is a "~" between the colon and the dollar symbol), type `wget https://raw.githubusercontent.com/SpheLC/Carrotshell/main/carrot && sudo mv ~/carrot /usr/bin && sudo chmod 777 /usr/bin/carrot`
 
 Once this is done, type `carrot -help` in the terminal, and it should list the commands you can do with Carrotshell. Have fun!
 
