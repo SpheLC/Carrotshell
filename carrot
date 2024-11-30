@@ -9,125 +9,125 @@ RED2='\033[91m'
 WHITE='\033[0m'
 UNDERLINE='\033[4m'
 
-ver1="33"
-ver="$ver1 ~ C & C++ have been separated && update bug fix"
+ver1="34"
+ver="$ver1 ~ colored text not showing & invalid texts bug fixed"
 upd=0
 cu="\n${HEADER}Commands usage:\n\ncarrot -cpp <path>\nExecute C++ program\n\ncarrot -c <path>\nExecute C program\n\ncarrot -repeat <string>\nRepeats the string you wrote\n\ncarrot -carrotedit\nOpens the Carrotshell program for you to edit\n\ncarrot -remove <file path>\nRemoves specified file\n\ncarrot -pi <package>\nInstalls the specified package\n\ncarrot -pr <package>\nRemoves the specified package\n\ncarrot -pu <package>\nUpdates apt and upgrades all packages\n\ncarrot -deb [-i/-r] <path>\nInstalls[-i]/Removes[-r] .deb package\n\ncarrot -update\nUpdates Carrotshell\n\ncarrot -rustdir <path>\nSets Rust Cargo directory (usually ~/.cargo/bin)\n\ncarrot -rust <path>\nExecute Rust program\n\n${GREEN}Carrotshell V${ver}$WHITE\n"
 
 if [ ! -f ~/.Carrotshell/ini ]; then
-    echo "\nInitialization..."
+    printf "\nInitialization...\n"
     if [ ! -d ~/.Carrotshell ]; then
         mkdir ~/.Carrotshell
     fi
     echo "Delete this file to re-inizialize Carrotshell!" >> ~/.Carrotshell/ini
-    echo "\n${RED1}Super User powers needed to install required packages$WHITE"
+    printf "\n${RED1}Super User powers needed to install required packages$WHITE\n"
     sudo apt install build-essential gedit xfce4-terminal w3m gcc
 fi
 
 if [ "$1" = '-cpp' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't write nothing!\nUsage: carrot -cpp <path>\n"
+        printf "\nYou haven't write nothing!\nUsage: carrot -cpp <path>\n\n"
     else
         if [ ! -f $2 ]; then
-            echo "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.cpp\n$WHITE"
+            printf "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.cpp\n$WHITE\n"
         else
-            echo "\n${RED1}Compiling...$WHITE"
+            printf "\n${RED1}Compiling...$WHITE\n"
             g++ $2 -o carrotprogbash
-            echo "${BLUE}Executing...$WHITE\n"
+            printf "${BLUE}Executing...$WHITE\n\n"
             if [ ! -f carrotprogbash ]; then
-                echo "${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n"
+                printf "${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n\n"
             else
                 ./carrotprogbash
                 rm carrotprogbash
-                echo "\n${GREEN}Executed!$WHITE\n"
+                printf "\n${GREEN}Executed!$WHITE\n\n"
             fi
         fi
     fi
 
 elif [ "$1" = '-c' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't write nothing!\nUsage: carrot -c <path>\n"
+        printf "\nYou haven't write nothing!\nUsage: carrot -c <path>\n\n"
     else
         if [ ! -f $2 ]; then
-            echo "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.c\n$WHITE"
+            printf "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.c\n$WHITE\n"
         else
-            echo "\n${RED1}Compiling...$WHITE"
+            printf "\n${RED1}Compiling...$WHITE\n"
             gcc $2 -o carrotprogbash
-            echo "${BLUE}Executing...$WHITE\n"
+            printf "${BLUE}Executing...$WHITE\n\n"
             if [ ! -f carrotprogbash ]; then
-                echo "${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n"
+                printf "${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n\n"
             else
                 ./carrotprogbash
                 rm carrotprogbash
-                echo "\n${GREEN}Executed!$WHITE\n"
+                printf "\n${GREEN}Executed!$WHITE\n\n"
             fi
         fi
     fi
 
 elif [ "$1" = '-deb' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't write the option!\nUsage: carrot -deb [-i/-r] <path>\n"
+        printf "\nYou haven't write the option!\nUsage: carrot -deb [-i/-r] <path>\n\n"
     elif [ "$2" = '-i' ]; then
         if [ "$3" = '' ]; then
-            echo "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n"
+            printf "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n\n"
         else
-            echo "\n${RED1}Super User powers needed to install packages$WHITE"
+            printf "\n${RED1}Super User powers needed to install packages$WHITE\n"
             sudo dpkg -i $3
         fi
     elif [ "$2" = '-r' ]; then
         if [ "$3" = '' ]; then
-            echo "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n"
+            printf "\nYou haven't write the path!\nUsage: carrot -deb [-i/-r] <path>\n\n"
         else
-            echo "\n${RED1}Super User powers needed to install packages$WHITE"
+            printf "\n${RED1}Super User powers needed to install packages$WHITE\n"
             sudo dpkg -r $3
         fi
     else
-        echo "\nInvalid option!\nUsage: carrot -deb [-i/-r] <path>\n"
+        printf "\nInvalid option!\nUsage: carrot -deb [-i/-r] <path>\n\n"
     fi
 
 elif [ "$1" = '-repeat' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't wrote nothing!\nUsage: carrot -repeat <string>\n"
+        printf "\nYou haven't wrote nothing!\nUsage: carrot -repeat <string>\n\n"
     else
-        echo "\n$2\n"
+        printf "\n$2\n\n"
     fi
 
 elif [ "$1" = '-carrotedit' ]; then
-    echo "\n${RED2}WARNING! You are about to edit the Carrotshell program!$WHITE"
-    echo -n "Are you still sure about editing it? [y/n] >> "
+    printf "\n${RED2}WARNING! You are about to edit the Carrotshell program!$WHITE\n"
+    printf "Are you still sure about editing it? [y/n] >> "
     read sas
     if [ "$sas" = 'y' ]; then
-        echo "\n${RED1}Opening gedit...$WHITE"
+        printf "\n${RED1}Opening gedit...$WHITE\n"
         sudo gedit /usr/bin/carrot
     else
-        echo "\n${GREEN}Aborted.$WHITE\n"
+        printf "\n${GREEN}Aborted.$WHITE\n\n"
     fi
 
 elif [ "$1" = '-remove' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>'$WHITE\n"
+        printf "\nYou haven't wrote nothing!\nUsage: carrot -remove <file path>\n${HEADER}Want to remove a directory (folder)?\nType 'carrot -remove ${RED1}-r${HEADER} <directory>'$WHITE\n\n"
     else
         rm $2 $3
     fi
 
 elif [ "$1" = '-pi' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't wrote nothing!\nUsage: carrot -pi <package>\n"
+        printf "\nYou haven't wrote nothing!\nUsage: carrot -pi <package>\n\n"
     else
-        echo "\n${RED1}Super User powers needed to install packages$WHITE"
+        printf "\n${RED1}Super User powers needed to install packages$WHITE\n"
         sudo apt install $2
     fi
 
 elif [ "$1" = '-pr' ]; then
     if [ "$2" = '' ]; then
-        echo "\nYou haven't wrote nothing!\nUsage: carrot -pr <package>\n"
+        printf "\nYou haven't wrote nothing!\nUsage: carrot -pr <package>\n\n"
     else
-        echo "\n${RED1}Super User powers needed to remove packages$WHITE"
+        printf "\n${RED1}Super User powers needed to remove packages$WHITE\n"
         sudo apt remove $2
     fi
 
 elif [ "$1" = '-pu' ]; then
-    echo "\n${RED1}Super User powers needed to update apt & upgrade packages$WHITE"
+    printf "\n${RED1}Super User powers needed to update apt & upgrade packages$WHITE\n"
     sudo apt update && sudo apt upgrade
 
 elif [ "$1" = '-update' ]; then
@@ -136,27 +136,26 @@ elif [ "$1" = '-update' ]; then
         fi
     cd ~/.Carrotshell/
     wget https://raw.githubusercontent.com/SpheLC/Carrotshell/main/carrot
-    echo "\n${RED1}Super User powers needed to update Carrotshell$WHITE"
-    echo "${RED1}Press Enter if I ask you a question to confirm moving some files (~/.Carrotshell/carrot to /usr/bin/carrot)$WHITE"
+    printf "\n${RED1}Super User powers needed to update Carrotshell$WHITE\n"
+    printf "${RED1}Press Enter if I ask you a question to confirm moving some files (~/.Carrotshell/carrot to /usr/bin/carrot)$WHITE\n"
     sudo mv ~/.Carrotshell/carrot /usr/bin
     sudo chmod +x /usr/bin/carrot
-    echo "${UNDERLINE}${GREEN}Done!$WHITE"
-    echo ""
+    printf "${UNDERLINE}${GREEN}Done!$WHITE\n\n"
     upd=1
 
 elif [ "$1" = '-help' ]; then
-    echo "$cu"
+    printf "$cu\n"
 elif [ "$1" = '' ]; then
-    echo "$cu"
+    printf "$cu\n"
 
 elif [ "$1" = '-rustdir' ]; then
     if [ "$2" = '' ]; then
-        echo "\n${RED2}You haven't wrote nothing!\n${RED1}Usage: carrot -rustdir <directory>\n(usually it is in ~/.cargo/bin)$WHITE\n"
+        printf "\n${RED2}You haven't wrote nothing!\n${RED1}Usage: carrot -rustdir <directory>\n(usually it is in ~/.cargo/bin)$WHITE\n\n"
     else
         if [ ! -d $2 ]; then
-            echo "\n${RED2}ERROR: This directory doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents\n$WHITE"
+            printf "\n${RED2}ERROR: This directory doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents\n$WHITE\n"
         else
-            echo "\nWriting..."
+            printf "\nWriting...\n"
             if [ ! -f ~/.Carrotshell/rust ]; then
                 echo $2 >> ~/.Carrotshell/rust
             else
@@ -164,34 +163,34 @@ elif [ "$1" = '-rustdir' ]; then
                 echo $2 >> ~/.Carrotshell/rust
             fi
             if [ ! -f $2/rustc ]; then
-                echo "${RED2}Invalid directory! This directory that you wrote doesn't have the 'rustc' file inside!$WHITE\n"
+                printf "${RED2}Invalid directory! This directory that you wrote doesn't have the 'rustc' file inside!$WHITE\n\n"
             else
-                echo "${GREEN}Done!$WHITE\n"
+                printf "${GREEN}Done!$WHITE\n\n"
             fi
         fi
     fi
 
 elif [ "$1" = '-rust' ]; then
     if [ "$2" = '' ]; then
-        echo "\n${RED2}You haven't write nothing!\n${RED1}Usage: carrot -rust <path>\n"
+        printf "\n${RED2}You haven't write nothing!\n${RED1}Usage: carrot -rust <path>\n\n"
     else
         if [ ! -f $2 ]; then
-            echo "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.rs\n$WHITE"
+            printf "\n${RED2}ERROR: This file doesn't exist!\n${RED1}Directory Example: /home/<username>/Documents/File.rs\n$WHITE\n"
         else
             b=$(basename $2)
             c=${b%.*}
             if [ ! -f ~/.Carrotshell/rust ]; then
-                echo "\n${RED2}ERROR: Rust Cargo directory it hasn't been set yet! Fix this by doing:\n${RED1}carrot -rustdir <path>$WHITE\n"
+                printf "\n${RED2}ERROR: Rust Cargo directory it hasn't been set yet! Fix this by doing:\n${RED1}carrot -rustdir <path>$WHITE\n\n"
             else
-                echo "\n${RED1}Compiling...$WHITE"
+                printf "\n${RED1}Compiling...$WHITE\n"
                 $(cat ~/.Carrotshell/rust)/rustc $2
-                echo "${BLUE}Executing...$WHITE\n"
+                printf "${BLUE}Executing...$WHITE\n\n"
                 if [ ! -f $c ]; then
-                    echo "\n${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n"
+                    printf "\n${RED2}ERROR: Compiled file not found. If you got this error after a compiling error, ignore this line.$WHITE\n\n"
                 else
                     ./$c
                     rm $c
-                    echo "\n${GREEN}Executed!$WHITE\n"
+                    printf "\n${GREEN}Executed!$WHITE\n\n"
                 fi
             fi
         fi
@@ -199,19 +198,19 @@ elif [ "$1" = '-rust' ]; then
 
 #if command not found...
 else
-    echo "\n'$1' is an unexpected command"
-    echo "$cu"
+    printf "\n'$1' is an unexpected command\n"
+    printf "$cu\n"
 fi
 
 #Check the version
 veronline=$(w3m -dump https://raw.githubusercontent.com/SpheLC/Carrotshell/main/version_dontmindme)
 if [ $veronline -gt $ver1 -a $upd -eq 0 ]; then
-    echo "${RED2}   .$WHITE"
-    echo "${RED2}  / \ $WHITE"
-    echo "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}! ${RED1}(V${veronline})$WHITE"
-    echo "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE\n"
+    printf "${RED2}   .$WHITE\n"
+    printf "${RED2}  / \ $WHITE\n"
+    printf "${RED2} / ${RED1}! ${RED2}\  ${BLUE}New version ${GREEN}avaiable${BLUE}! ${RED1}(V${veronline})$WHITE\n"
+    printf "${RED2}+-----+\n\n${RED1}'carrot -update' to update!$WHITE\n\n"
 elif [ $veronline -lt $ver1 ]; then
-    echo "${RED1}ERROR: Your version is newer than the original release.\nTry to update Carrotshell to fix this error or just wait some minutes.\nYour version: $ver1 | Current version: $veronline$WHITE\n"
+    printf "${RED1}ERROR: Your version is newer than the original release.\nTry to update Carrotshell to fix this error or just wait some minutes.\nYour version: $ver1 | Current version: $veronline$WHITE\n\n"
 fi
 
 #Carrotshell By Sphe
